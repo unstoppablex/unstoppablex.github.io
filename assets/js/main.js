@@ -1,219 +1,247 @@
-$(document).ready(function($) {
+/**
+* Template Name: Personal - v4.7.0
+* Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+(function() {
+  "use strict";
 
-	"use strict";
+  /**
+   * Easy selector helper function
+   */
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
+  }
 
-	var loader = function() {
-		
-		setTimeout(function() { 
-			if($('#pb_loader').length > 0) {
-				$('#pb_loader').removeClass('show');
-			}
-		}, 700);
-	};
-	loader();
+  /**
+   * Easy event listener function
+   */
+  const on = (type, el, listener, all = false) => {
+    let selectEl = select(el, all)
 
-	// scroll
-	var scrollWindow = function() {
-		$(window).scroll(function(){
-			var $w = $(this),
-					st = $w.scrollTop(),
-					navbar = $('.pb_navbar'),
-					sd = $('.js-scroll-wrap');
+    if (selectEl) {
+      if (all) {
+        selectEl.forEach(e => e.addEventListener(type, listener))
+      } else {
+        selectEl.addEventListener(type, listener)
+      }
+    }
+  }
 
-			if (st > 150) {
-				if ( !navbar.hasClass('scrolled') ) {
-					navbar.addClass('scrolled');	
-				}
-			} 
-			if (st < 150) {
-				if ( navbar.hasClass('scrolled') ) {
-					navbar.removeClass('scrolled sleep');
-				}
-			} 
-			if ( st > 350 ) {
-				if ( !navbar.hasClass('awake') ) {
-					navbar.addClass('awake');	
-				}
-				
-				if(sd.length > 0) {
-					sd.addClass('sleep');
-				}
-			}
-			if ( st < 350 ) {
-				if ( navbar.hasClass('awake') ) {
-					navbar.removeClass('awake');
-					navbar.addClass('sleep');
-				}
-				if(sd.length > 0) {
-					sd.removeClass('sleep');
-				}
-			}
-		});
-	};
-	scrollWindow();
-	
-	// slick sliders
-	var slickSliders = function() {
-		$('.single-item').slick({
-			slidesToShow: 1,
-		  slidesToScroll: 1,
-		  dots: true,
-		  infinite: true,
-		  autoplay: false,
-	  	autoplaySpeed: 2000,
-	  	nextArrow: '<span class="next"><i class="ion-ios-arrow-right"></i></span>',
-	  	prevArrow: '<span class="prev"><i class="ion-ios-arrow-left"></i></span>',
-	  	arrows: true,
-	  	draggable: false,
-	  	adaptiveHeight: true
-		});
+  /**
+   * Scrolls to an element with header offset
+   */
+  const scrollto = (el) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
-		$('.single-item-no-arrow').slick({
-			slidesToShow: 1,
-		  slidesToScroll: 1,
-		  dots: true,
-		  infinite: true,
-		  autoplay: true,
-	  	autoplaySpeed: 2000,
-	  	nextArrow: '<span class="next"><i class="ion-ios-arrow-right"></i></span>',
-	  	prevArrow: '<span class="prev"><i class="ion-ios-arrow-left"></i></span>',
-	  	arrows: false,
-	  	draggable: false
-		});
+  /**
+   * Mobile nav toggle
+   */
+  on('click', '.mobile-nav-toggle', function(e) {
+    select('#navbar').classList.toggle('navbar-mobile')
+    this.classList.toggle('bi-list')
+    this.classList.toggle('bi-x')
+  })
 
-		$('.multiple-items').slick({
-		  slidesToShow: 3,
-		  slidesToScroll: 1,
-		  dots: true,
-		  infinite: true,
-		  
-		  autoplay: true,
-	  	autoplaySpeed: 2000,
+  /**
+   * Scrool with ofset on links with a class name .scrollto
+   */
+  on('click', '#navbar .nav-link', function(e) {
+    let section = select(this.hash)
+    if (section) {
+      e.preventDefault()
 
-		  arrows: true,
-		  nextArrow: '<span class="next"><i class="ion-ios-arrow-right"></i></span>',
-	  	prevArrow: '<span class="prev"><i class="ion-ios-arrow-left"></i></span>',
-	  	draggable: false,
-	  	responsive: [
-		    {
-		      breakpoint: 1125,
-		      settings: {
-		        slidesToShow: 2,
-		        slidesToScroll: 1,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    {
-		      breakpoint: 900,
-		      settings: {
-		        slidesToShow: 2,
-		        slidesToScroll: 2
-		      }
-		    },
-		    {
-		      breakpoint: 580,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    }
-		  ]
-		});
+      let navbar = select('#navbar')
+      let header = select('#header')
+      let sections = select('section', true)
+      let navlinks = select('#navbar .nav-link', true)
 
-		$('.js-pb_slider_content').slick({
-		  slidesToShow: 1,
-		  slidesToScroll: 1,
-		  arrows: false,
-		  fade: true,
-		  asNavFor: '.js-pb_slider_nav',
-		  adaptiveHeight: false
-		});
-		$('.js-pb_slider_nav').slick({
-		  slidesToShow: 3,
-		  slidesToScroll: 1,
-		  asNavFor: '.js-pb_slider_content',
-		  dots: false,
-		  centerMode: true,
-		  centerPadding: "0px",
-		  focusOnSelect: true,
-		  arrows: false
-		});
+      navlinks.forEach((item) => {
+        item.classList.remove('active')
+      })
 
-		$('.js-pb_slider_content2').slick({
-		  slidesToShow: 1,
-		  slidesToScroll: 1,
-		  arrows: false,
-		  fade: true,
-		  asNavFor: '.js-pb_slider_nav2',
-		  adaptiveHeight: false
-		});
-		$('.js-pb_slider_nav2').slick({
-		  slidesToShow: 3,
-		  slidesToScroll: 1,
-		  asNavFor: '.js-pb_slider_content2',
-		  dots: false,
-		  centerMode: true,
-		  centerPadding: "0px",
-		  focusOnSelect: true,
-		  arrows: false
-		});
-	};
-	slickSliders();
+      this.classList.add('active')
 
-	// navigation
-	var OnePageNav = function() {
-		$(".smoothscroll[href^='#'], #probootstrap-navbar ul li a[href^='#']").on('click', function(e) {
-		 	e.preventDefault();
-		 	var hash = this.hash,
-		 			navToggler = $('.navbar-toggler');
-		 	$('html, body').animate({
+      if (navbar.classList.contains('navbar-mobile')) {
+        navbar.classList.remove('navbar-mobile')
+        let navbarToggle = select('.mobile-nav-toggle')
+        navbarToggle.classList.toggle('bi-list')
+        navbarToggle.classList.toggle('bi-x')
+      }
 
-		    scrollTop: $(hash).offset().top
-		  }, 700, 'easeInOutExpo', function(){
-		    window.location.hash = hash;
-		  });
+      if (this.hash == '#header') {
+        header.classList.remove('header-top')
+        sections.forEach((item) => {
+          item.classList.remove('section-show')
+        })
+        return;
+      }
 
-		  if ( navToggler.is(':visible') ) {
-		  	navToggler.click();
-		  }
-		});
-		$('body').on('activate.bs.scrollspy', function () {
-		  console.log('nice');
-		})
-	};
-	OnePageNav();
+      if (!header.classList.contains('header-top')) {
+        header.classList.add('header-top')
+        setTimeout(function() {
+          sections.forEach((item) => {
+            item.classList.remove('section-show')
+          })
+          section.classList.add('section-show')
 
-	var offCanvasNav = function() {
-		var toggleNav = $('.js-pb_nav-toggle'),
-				offcanvasNav = $('.js-pb_offcanvas-nav_v1');
-		if( toggleNav.length > 0 ) {
-			toggleNav.click(function(e){
-				$(this).toggleClass('active');
-				offcanvasNav.addClass('active');
-				e.preventDefault();
-			});
-		}
-		offcanvasNav.click(function(e){
-			if (offcanvasNav.hasClass('active')) {
-				offcanvasNav.removeClass('active');
-				toggleNav.removeClass('active');
-			}
-			e.preventDefault();
-		})
-	};
-	offCanvasNav();
+        }, 350);
+      } else {
+        sections.forEach((item) => {
+          item.classList.remove('section-show')
+        })
+        section.classList.add('section-show')
+      }
 
-	var ytpPlayer = function() {
-		if ($('.ytp_player').length > 0) { 
-			$('.ytp_player').mb_YTPlayer();	
-		}
-	}
-	ytpPlayer();
+      scrollto(this.hash)
+    }
+  }, true)
 
+  /**
+   * Activate/show sections on load with hash links
+   */
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      let initial_nav = select(window.location.hash)
 
-	
+      if (initial_nav) {
+        let header = select('#header')
+        let navlinks = select('#navbar .nav-link', true)
 
+        header.classList.add('header-top')
 
-});
+        navlinks.forEach((item) => {
+          if (item.getAttribute('href') == window.location.hash) {
+            item.classList.add('active')
+          } else {
+            item.classList.remove('active')
+          }
+        })
 
+        setTimeout(function() {
+          initial_nav.classList.add('section-show')
+        }, 350);
+
+        scrollto(window.location.hash)
+      }
+    }
+  });
+
+  /**
+   * Skills animation
+   */
+  let skilsContent = select('.skills-content');
+  if (skilsContent) {
+    new Waypoint({
+      element: skilsContent,
+      offset: '80%',
+      handler: function(direction) {
+        let progress = select('.progress .progress-bar', true);
+        progress.forEach((el) => {
+          el.style.width = el.getAttribute('aria-valuenow') + '%'
+        });
+      }
+    })
+  }
+
+  /**
+   * Testimonials slider
+   */
+  new Swiper('.testimonials-slider', {
+    speed: 600,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    slidesPerView: 'auto',
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 20
+      },
+
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      }
+    }
+  });
+
+  /**
+   * Porfolio isotope and filter
+   */
+  window.addEventListener('load', () => {
+    let portfolioContainer = select('.portfolio-container');
+    if (portfolioContainer) {
+      let portfolioIsotope = new Isotope(portfolioContainer, {
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
+      });
+
+      let portfolioFilters = select('#portfolio-flters li', true);
+
+      on('click', '#portfolio-flters li', function(e) {
+        e.preventDefault();
+        portfolioFilters.forEach(function(el) {
+          el.classList.remove('filter-active');
+        });
+        this.classList.add('filter-active');
+
+        portfolioIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+      }, true);
+    }
+
+  });
+
+  /**
+   * Initiate portfolio lightbox 
+   */
+  const portfolioLightbox = GLightbox({
+    selector: '.portfolio-lightbox'
+  });
+
+  /**
+   * Initiate portfolio details lightbox 
+   */
+  const portfolioDetailsLightbox = GLightbox({
+    selector: '.portfolio-details-lightbox',
+    width: '90%',
+    height: '90vh'
+  });
+
+  /**
+   * Portfolio details slider
+   */
+  new Swiper('.portfolio-details-slider', {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    }
+  });
+
+})()

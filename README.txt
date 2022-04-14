@@ -1,4 +1,6 @@
-Bu Template The Law ve Arcitacte çalışmalarının karışımıyla hazırlanmıştır.
-SCSS, CSS ve HTML içinde bulunan belirli bölümlerde yazmış olduğum kendi kodlarım bulunmaktadır.
+Thanks for downloading this template!
 
-İzinsiz kullanılması kesinlikle yasaktır, Regona tarafından "Baldan Ana" iş yeri için kodlanmış ve remixlenmiştir.
+Template Name: Personal
+Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
+Author: BootstrapMade.com
+License: https://bootstrapmade.com/license/
