@@ -1,6 +1,10 @@
-Thanks for downloading this template!
+### 🔥 Thanks for downloading this template!
++ `Template Name:` Personal
++ `Template URL:` https://github.com/unstoppablex/unstoppablex.github.io
++ `Author:` https://github.com/unstoppablex
 
-Template Name: Personal
-Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+### 🚀 Contact
++ `Telegram:` https://t.me/unstoppablexd
++ `Discord:` https://discord.gg/ciddi
+
+
